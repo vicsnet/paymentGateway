@@ -12,6 +12,8 @@ const tokenAbi = [
   "function transfer(address to, uint amount) public returns (bool)"
 ];
 
+console.log(process.env.RPC_URL);
+
 const token = new ethers.Contract(process.env.ERC20_CONTRACT_ADDRESS, tokenAbi, wallet);
 
 async function sendMockTokens(to, amount) {
