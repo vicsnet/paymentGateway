@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const webhookRouter = require('./routes/webhook');
 const paymentRouter = require('./routes/payment');
 
@@ -12,6 +13,9 @@ mongoose.connect(process.env.MONGO_URI, {
     useUnifiedTopology: true,
 }).then(() => console.log('✅ MongoDB connected'))
 .catch(err => console.error('❌ MongoDB error:', err));
+
+
+app.use(cors());
 
 app.use('/webhook', webhookRouter);
 app.use('/create-payment', paymentRouter);
