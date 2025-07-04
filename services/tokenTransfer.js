@@ -1,10 +1,17 @@
 const { ethers } = require('ethers');
 
+if (!process.env.RPC_URL) {
+  console.error('❌ RPC_URL is not defined in environment variables.');
+  process.exit(1);
+}
+
 const provider = new ethers.JsonRpcProvider(process.env.RPC_URL);
 const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
+
 const tokenAbi = [
   "function transfer(address to, uint amount) public returns (bool)"
 ];
+
 const token = new ethers.Contract(process.env.ERC20_CONTRACT_ADDRESS, tokenAbi, wallet);
 
 async function sendMockTokens(to, amount) {
